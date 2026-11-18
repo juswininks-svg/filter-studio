@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paws & Pixels ♡ Cute Y2K Photo Filter Studio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Quicksand & Cherry Bomb One / Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for cute icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        pinky: {
+                            50: '#fff5f8',
+                            100: '#ffe6ef',
+                            200: '#ffcce0',
+                            300: '#ffa3c7',
+                            400: '#ff70a8',
+                            500: '#f83d86',
+                            600: '#e31c66',
+                            700: '#be104e',
+                            800: '#9d1143',
+                            900: '#83133b',
+                        },
+                        cream: '#fff9fb',
+                        berry: '#5c1a36',
+                    },
+                    boxShadow: {
+                        'kawaii': '0 10px 25px -5px rgba(248, 61, 134, 0.18), 0 8px 10px -6px rgba(248, 61, 134, 0.1)',
+                        'glossy': 'inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 6px 15px rgba(248, 61, 134, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #fff5f8;
+            background-image: 
+                radial-gradient(#ffcce0 1.2px, transparent 1.2px),
+                radial-gradient(#ffe6ef 1.2px, #fff5f8 1.2px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            color: #5c1a36;
+        }
+
+        /* Custom cute range slider */
+        input[type="range"].pink-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #ffd6e6;
+            border-radius: 999px;
+            outline: none;
+            border: 1px solid #ffb3d1;
+        }
+
+        input[type="range"].pink-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff85b5, #f83d86);
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(248, 61, 134, 0.4);
+            transition: transform 0.15s ease;
+        }
+
+        input[type="range"].pink-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        /* Floating sparkle animation */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(4deg); }
+        }
+        .animate-float {
+            animation: floatSlow 3.5s ease-in-out infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe6ef;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffa3c7;
+            border-radius: 999px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-pinky-300 selection:text-white">
+
+    <!-- Toast Notification Banner (No alert() used!) -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-4">
+        <div class="bg-white/95 backdrop-blur-md border-2 border-pinky-300 text-berry px-5 py-2.5 rounded-full shadow-kawaii flex items-center gap-2.5 font-semibold text-sm">
+            <span id="toast-icon" class="text-pinky-500">✨</span>
+            <span id="toast-msg">Photo updated!</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="w-full pt-5 pb-3 px-4">
+        <div class="max-w-5xl mx-auto bg-white/85 backdrop-blur-md border-2 border-pinky-200 rounded-3xl px-5 py-3.5 shadow-kawaii flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-pinky-300 via-pinky-400 to-pinky-500 flex items-center justify-center text-white text-xl shadow-glossy animate-float">
+                    <i class="fa-solid fa-paw"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-berry">Paws & Pixels</h1>
+                        <span class="text-xs font-bold bg-pinky-100 text-pinky-600 border border-pinky-300 px-2 py-0.5 rounded-full">Y2K CAM ♡</span>
+                    </div>
+                    <p class="text-xs text-pinky-700/80 font-medium">2000s Low-Fi Digicam & 2016 Puppy Filter Booth</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <label for="file-upload" class="cursor-pointer bg-pinky-100 hover:bg-pinky-200 active:scale-95 text-pinky-700 border border-pinky-300 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-2xl transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Upload Pic</span>
+                </label>
+                <input id="file-upload" type="file" accept="image/*" class="hidden">
+
+                <button id="download-btn-top" class="bg-gradient-to-r from-pinky-400 to-pinky-500 hover:from-pinky-500 hover:to-pinky-600 active:scale-95 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-2xl shadow-glossy transition flex items-center gap-2">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Save Pic</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-3 grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        <!-- Left / Top: Interactive Canvas Preview & Dropzone -->
+        <section class="lg:col-span-7 flex flex-col gap-3">
+            <div id="drop-zone" class="relative bg-white/90 border-2 border-dashed border-pinky-300 rounded-3xl p-3 sm:p-4 shadow-kawaii transition-all duration-200 flex flex-col items-center justify-center">
+                
+                <!-- Cute Top Window Bar (Coquette Photo Booth style) -->
+                <div class="w-full flex items-center justify-between px-2 pb-2.5 mb-2 border-b border-pinky-100">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded-full bg-pinky-400 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-pinky-200 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-200 inline-block"></span>
+                        <span class="ml-2 text-xs font-bold text-pinky-600 tracking-wide" id="active-filter-badge">✨ Low-Fi Webcam</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="reset-sample-btn" class="text-[11px] font-semibold text-pinky-600 hover:text-pinky-800 bg-pinky-50 hover:bg-pinky-100 px-2.5 py-1 rounded-full border border-pinky-200 transition" title="Load cute sample portrait">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Sample Pic
+                        </button>
+                        <button id="toggle-compare-btn" class="text-[11px] font-semibold text-pinky-600 hover:text-pinky-800 bg-pinky-50 hover:bg-pinky-100 px-2.5 py-1 rounded-full border border-pinky-200 transition select-none" title="Hold to view original">
+                            <i class="fa-regular fa-eye mr-1"></i>Hold Original
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Container -->
+                <div id="canvas-wrapper" class="relative w-full flex items-center justify-center bg-pinky-50/70 rounded-2xl overflow-hidden min-h-[300px] sm:min-h-[380px] border border-pinky-100">
+                    <canvas id="photo-canvas" class="max-w-full max-h-[62vh] w-auto h-auto rounded-xl shadow-sm touch-none cursor-grab active:cursor-grabbing"></canvas>
+                    
+                    <!-- Drag & Drop Overlay Highlight -->
+                    <div id="drag-overlay" class="hidden absolute inset-0 bg-pinky-200/80 backdrop-blur-sm border-4 border-dashed border-pinky-500 rounded-2xl flex flex-col items-center justify-center text-berry z-20 pointer-events-none">
+                        <i class="fa-solid fa-heart-circle-plus text-5xl text-pinky-500 mb-2 animate-bounce"></i>
+                        <p class="font-bold text-lg">Drop your cute selfie here! ♡</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Helper Tip -->
+                <div class="w-full mt-2.5 flex flex-wrap items-center justify-between gap-2 px-1 text-xs text-pinky-700/90">
+                    <span id="helper-hint" class="flex items-center gap-1.5 font-medium">
+                        <i class="fa-solid fa-sparkles text-pinky-400"></i>
+                        <span>Tip: Drag & drop any selfie or click Upload Pic above!</span>
+                    </span>
+                    <span id="image-dimensions" class="text-[11px] bg-pinky-50 px-2.5 py-0.5 rounded-full border border-pinky-200 font-semibold text-pinky-600">
+                        Ready ♡
+                    </span>
+                </div>
+            </div>
+
+            <!-- Big Glossy Download CTA -->
+            <button id="download-btn-main" class="w-full py-3.5 px-6 rounded-3xl bg-gradient-to-r from-pinky-400 via-pinky-500 to-pinky-400 hover:from-pinky-500 hover:to-pinky-600 active:scale-[0.99] text-white font-bold text-base sm:text-lg shadow-glossy transition flex items-center justify-center gap-2.5 border-2 border-white/60">
+                <i class="fa-solid fa-download"></i>
+                <span>Download Cute Pic 💖</span>
+            </button>
+        </section>
+
+        <!-- Right / Bottom: 4 Filter Cards & Fine-Tuning Controls -->
+        <aside class="lg:col-span-5 flex flex-col gap-4">
+            
+            <!-- 4 Filter Selector Grid -->
+            <div class="bg-white/90 backdrop-blur-md border-2 border-pinky-200 rounded-3xl p-4 shadow-kawaii">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="font-bold text-base text-berry flex items-center gap-2">
+                        <i class="fa-solid fa-camera-retro text-pinky-500"></i>
+                        <span>Choose Aesthetic Filter</span>
+                    </h2>
+                    <span class="text-[11px] font-bold text-pinky-500 bg-pinky-50 px-2.5 py-0.5 rounded-full border border-pinky-200">4 Styles</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2.5">
+                    <!-- Filter 1: Low-Fi Webcam -->
+                    <button type="button" data-filter="webcam" class="filter-card group text-left p-3 rounded-2xl border-2 border-pinky-500 bg-pinky-50/90 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-900 via-purple-800 to-amber-200 flex items-center justify-center text-white text-sm shadow-inner border border-white/40">
+                                <i class="fa-solid fa-tv"></i>
+                            </span>
+                            <span class="active-dot w-2.5 h-2.5 rounded-full bg-pinky-500"></span>
+                        </div>
+                        <div class="font-bold text-xs sm:text-sm text-berry leading-tight">1. Low-Fi Webcam</div>
+                        <div class="text-[11px] text-pinky-700/80 mt-0.5 leading-snug">2000s CRT grid, cool shadows & rounded frame</div>
+                    </button>
+
+                    <!-- Filter 2: Retro Flash & Grain -->
+                    <button type="button" data-filter="digicam" class="filter-card group text-left p-3 rounded-2xl border-2 border-pinky-200 bg-white hover:bg-pinky-50/50 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-100 via-yellow-200 to-stone-800 flex items-center justify-center text-berry text-sm shadow-inner border border-pinky-200">
+                                <i class="fa-solid fa-bolt"></i>
+                            </span>
+                            <span class="active-dot w-2.5 h-2.5 rounded-full bg-transparent"></span>
+                        </div>
+                        <div class="font-bold text-xs sm:text-sm text-berry leading-tight">2. Retro Digicam</div>
+                        <div class="text-[11px] text-pinky-700/80 mt-0.5 leading-snug">Blown creamy flash, analog grain & tilted edge</div>
+                    </button>
+
+                    <!-- Filter 3: Classic Flash Puppy -->
+                    <button type="button" data-filter="puppyFlash" class="filter-card group text-left p-3 rounded-2xl border-2 border-pinky-200 bg-white hover:bg-pinky-50/50 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-600 via-pink-400 to-rose-900 flex items-center justify-center text-white text-sm shadow-inner border border-white/40">
+                                <i class="fa-solid fa-dog"></i>
+                            </span>
+                            <span class="active-dot w-2.5 h-2.5 rounded-full bg-transparent"></span>
+                        </div>
+                        <div class="font-bold text-xs sm:text-sm text-berry leading-tight">3. Flash Puppy ♡</div>
+                        <div class="text-[11px] text-pinky-700/80 mt-0.5 leading-snug">2016 rosy flash, floppy ears & glossy nose</div>
+                    </button>
+
+                    <!-- Filter 4: Nerd Puppy Split-Glitch -->
+                    <button type="button" data-filter="puppyNerd" class="filter-card group text-left p-3 rounded-2xl border-2 border-pinky-200 bg-white hover:bg-pinky-50/50 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-lime-200 via-amber-700 to-neutral-900 flex items-center justify-center text-white text-sm shadow-inner border border-white/40">
+                                <i class="fa-solid fa-glasses"></i>
+                            </span>
+                            <span class="active-dot w-2.5 h-2.5 rounded-full bg-transparent"></span>
+                        </div>
+                        <div class="font-bold text-xs sm:text-sm text-berry leading-tight">4. Nerd Puppy Glitch</div>
+                        <div class="text-[11px] text-pinky-700/80 mt-0.5 leading-snug">Puppy + black glasses + right pixel strip</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter & Sticker Adjustment Panel -->
+            <div class="bg-white/90 backdrop-blur-md border-2 border-pinky-200 rounded-3xl p-4 shadow-kawaii flex flex-col gap-3.5">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-sm text-berry flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-pinky-500"></i>
+                        <span>Customize Effect & Stickers</span>
+                    </h3>
+                    <button id="reset-adjustments-btn" class="text-[11px] font-bold text-pinky-600 hover:underline">
+                        Reset
+                    </button>
+                </div>
+
+                <!-- Filter Intensity / Grain Slider -->
+                <div>
+                    <div class="flex justify-between text-xs font-semibold mb-1">
+                        <span class="text-berry">Filter & Grain Intensity</span>
+                        <span id="intensity-val" class="text-pinky-600">85%</span>
+                    </div>
+                    <input id="intensity-slider" type="range" min="15" max="100" value="85" class="pink-slider">
+                </div>
+
+                <!-- Low-Fi Pixelation / Glitch Amount -->
+                <div id="pixel-control-group">
+                    <div class="flex justify-between text-xs font-semibold mb-1">
+                        <span id="pixel-label" class="text-berry">Low-Res Pixel Crunch</span>
+                        <span id="pixel-val" class="text-pinky-600">50%</span>
+                    </div>
+                    <input id="pixel-slider" type="range" min="0" max="100" value="50" class="pink-slider">
+                </div>
+
+                <!-- Puppy Sticker Controls (Shown only when Puppy filters are selected) -->
+                <div id="puppy-controls" class="hidden pt-2 border-t border-pinky-100 flex flex-col gap-3">
+                    <div class="bg-pinky-50/90 border border-pinky-200 rounded-2xl p-2.5 text-[11px] text-pinky-800 flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-hand-pointer text-pinky-500 text-sm"></i>
+                            <span>Drag <b>ears</b>, <b>glasses</b>, or <b>nose</b> directly on photo!</span>
+                        </div>
+                        <button id="center-stickers-btn" class="shrink-0 bg-white hover:bg-pinky-100 text-pinky-600 font-bold px-2.5 py-1 rounded-xl border border-pinky-200 transition">
+                            Center
+                        </button>
+                    </div>
+
+                    <!-- Sticker Target Selector -->
+                    <div class="flex items-center gap-1.5 bg-pinky-50 p-1 rounded-2xl border border-pinky-200">
+                        <button type="button" data-target="all" class="sticker-target-btn flex-1 py-1.5 rounded-xl text-xs font-bold bg-pinky-500 text-white shadow-sm transition">
+                            All Stickers
+                        </button>
+                        <button type="button" data-target="ears" class="sticker-target-btn flex-1 py-1.5 rounded-xl text-xs font-bold text-pinky-700 hover:bg-pinky-100 transition">
+                            Ears
+                        </button>
+                        <button type="button" data-target="glasses" id="target-glasses-btn" class="sticker-target-btn hidden flex-1 py-1.5 rounded-xl text-xs font-bold text-pinky-700 hover:bg-pinky-100 transition">
+                            Glasses
+                        </button>
+                        <button type="button" data-target="nose" class="sticker-target-btn flex-1 py-1.5 rounded-xl text-xs font-bold text-pinky-700 hover:bg-pinky-100 transition">
+                            Nose
+                        </button>
+                    </div>
+
+                    <!-- Sticker Size Slider -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-berry">Sticker Scale</span>
+                            <span id="sticker-scale-val" class="text-pinky-600">100%</span>
+                        </div>
+                        <input id="sticker-scale-slider" type="range" min="40" max="180" value="100" class="pink-slider">
+                    </div>
+
+                    <!-- Sticker Tilt Slider -->
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-berry">Head Tilt / Rotation</span>
+                            <span id="sticker-rot-val" class="text-pinky-600">0°</span>
+                        </div>
+                        <input id="sticker-rot-slider" type="range" min="-35" max="35" value="0" class="pink-slider">
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-4 px-4 text-center text-xs text-pinky-700/75 font-medium">
+        <p>Made with <span class="text-pinky-500">♡</span> for Y2K & 2016 selfie nostalgia • 100% private in-browser editing</p>
+    </footer>
+
+    <script>
+        /**
+         * Paws & Pixels - Cute Y2K & 2016 Puppy Filter App
+         * All image processing, pixel shaders, custom vector/gradient puppy stickers,
+         * and split-glitch rendering run locally on HTML5 Canvas with zero external image CORS issues.
+         */
+
+        // --- DOM Elements ---
+        const canvas = document.getElementById('photo-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const fileInput = document.getElementById('file-upload');
+        const dropZone = document.getElementById('drop-zone');
+        const dragOverlay = document.getElementById('drag-overlay');
+        const filterCards = document.querySelectorAll('.filter-card');
+        const activeFilterBadge = document.getElementById('active-filter-badge');
+        const helperHint = document.getElementById('helper-hint');
+        const imageDimensionsBadge = document.getElementById('image-dimensions');
+
+        // Sliders & Controls
+        const intensitySlider = document.getElementById('intensity-slider');
+        const intensityVal = document.getElementById('intensity-val');
+        const pixelSlider = document.getElementById('pixel-slider');
+        const pixelVal = document.getElementById('pixel-val');
+        const pixelLabel = document.getElementById('pixel-label');
+        const pixelControlGroup = document.getElementById('pixel-control-group');
+
+        const puppyControls = document.getElementById('puppy-controls');
+        const stickerScaleSlider = document.getElementById('sticker-scale-slider');
+        const stickerScaleVal = document.getElementById('sticker-scale-val');
+        const stickerRotSlider = document.getElementById('sticker-rot-slider');
+        const stickerRotVal = document.getElementById('sticker-rot-val');
+        const targetBtns = document.querySelectorAll('.sticker-target-btn');
+        const targetGlassesBtn = document.getElementById('target-glasses-btn');
+
+        // Buttons
+        const downloadBtnTop = document.getElementById('download-btn-top');
+        const downloadBtnMain = document.getElementById('download-btn-main');
+        const resetSampleBtn = document.getElementById('reset-sample-btn');
+        const toggleCompareBtn = document.getElementById('toggle-compare-btn');
+        const resetAdjustmentsBtn = document.getElementById('reset-adjustments-btn');
+        const centerStickersBtn = document.getElementById('center-stickers-btn');
+
+        // --- Application State ---
+        const state = {
+            sourceImage: null,
+            currentFilter: 'webcam', // 'webcam' | 'digicam' | 'puppyFlash' | 'puppyNerd'
+            intensity: 0.85,
+            pixelAmount: 0.50,
+            showOriginal: false,
+            activeStickerTarget: 'all', // 'all' | 'ears' | 'glasses' | 'nose'
+            draggingPart: null,
+            dragOffset: { x: 0, y: 0 },
+            // Normalized sticker positions (0..1 relative to main photo area)
+            stickers: {
+                ears:    { x: 0.50, y: 0.25, scale: 1.0, rotation: 0 },
+                glasses: { x: 0.50, y: 0.43, scale: 1.0, rotation: 0 },
+                nose:    { x: 0.50, y: 0.55, scale: 1.0, rotation: 0 }
+            }
+        };
+
+        // Pre-generated deterministic grain buffer for fast, authentic film noise
+        const grainCanvas = document.createElement('canvas');
+        grainCanvas.width = 256;
+        grainCanvas.height = 256;
+        const grainCtx = grainCanvas.getContext('2d');
+
+        function initGrainBuffer() {
+            const imgData = grainCtx.createImageData(256, 256);
+            const data = imgData.data;
+            for (let i = 0; i < data.length; i += 4) {
+                // Box-Muller-like approximation for organic analog film grain
+                const v = ((Math.random() + Math.random() + Math.random()) / 3) * 255;
+                data[i] = v;
+                data[i + 1] = v;
+                data[i + 2] = v;
+                data[i + 3] = 255;
+            }
+            grainCtx.putImageData(imgData, 0, 0);
+        }
+
+        // --- Toast Notification Helper ---
+        let toastTimer = null;
+        function showToast(message, icon = '✨') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            document.getElementById('toast-icon').textContent = icon;
+            toast.classList.remove('opacity-0', '-translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', '-translate-y-4');
+            }, 2500);
+        }
+
+        // --- Generate Cute Illustrated Default Sample Portrait ---
+        function createDefaultSampleImage() {
+            const sampleCanvas = document.createElement('canvas');
+            sampleCanvas.width = 640;
+            sampleCanvas.height = 760;
+            const sctx = sampleCanvas.getContext('2d');
+
+            // Soft bedroom wall gradient background
+            const bgGrad = sctx.createLinearGradient(0, 0, 640, 760);
+            bgGrad.addColorStop(0, '#d8c8c0');
+            bgGrad.addColorStop(0.5, '#cbb5b0');
+            bgGrad.addColorStop(1, '#9f8786');
+            sctx.fillStyle = bgGrad;
+            sctx.fillRect(0, 0, 640, 760);
+
+            // Soft flash spotlight behind head
+            const flashSpot = sctx.createRadialGradient(320, 340, 30, 320, 340, 360);
+            flashSpot.addColorStop(0, 'rgba(255, 245, 238, 0.75)');
+            flashSpot.addColorStop(0.6, 'rgba(235, 210, 205, 0.25)');
+            flashSpot.addColorStop(1, 'rgba(90, 70, 75, 0.35)');
+            sctx.fillStyle = flashSpot;
+            sctx.fillRect(0, 0, 640, 760);
+
+            // Back Hair (Long dark layered hair)
+            sctx.fillStyle = '#1c1518';
+            sctx.beginPath();
+            sctx.moveTo(155, 260);
+            sctx.bezierCurveTo(110, 420, 95, 620, 125, 760);
+            sctx.lineTo(525, 760);
+            sctx.bezierCurveTo(550, 610, 535, 410, 485, 250);
+            sctx.bezierCurveTo(440, 110, 200, 110, 155, 260);
+            sctx.fill();
+
+            // Neck & Shoulders
+            const skinGrad = sctx.createLinearGradient(320, 440, 320, 760);
+            skinGrad.addColorStop(0, '#e6b8a2');
+            skinGrad.addColorStop(0.4, '#f2cbb8');
+            skinGrad.addColorStop(1, '#dfa890');
+            sctx.fillStyle = skinGrad;
+            // Neck
+            sctx.fillRect(272, 460, 96, 120);
+            // Neck shadow
+            sctx.fillStyle = 'rgba(130, 75, 65, 0.28)';
+            sctx.beginPath();
+            sctx.ellipse(320, 485, 48, 24, 0, 0, Math.PI * 2);
+            sctx.fill();
+
+            // Shoulders & Cute Pastel Top
+            sctx.fillStyle = skinGrad;
+            sctx.beginPath();
+            sctx.ellipse(320, 665, 210, 130, 0, Math.PI, Math.PI * 2);
+            sctx.fill();
+
+            // Cute White/Pink Coquette Off-Shoulder Top
+            sctx.fillStyle = '#fff5f8';
+            sctx.beginPath();
+            sctx.moveTo(135, 630);
+            sctx.quadraticCurveTo(320, 665, 505, 630);
+            sctx.lineTo(535, 760);
+            sctx.lineTo(105, 760);
+            sctx.closePath();
+            sctx.fill();
+
+            // Dark tank strap detail (like ref 2)
+            sctx.strokeStyle = '#241c20';
+            sctx.lineWidth = 10;
+            sctx.beginPath();
+            sctx.moveTo(215, 555);
+            sctx.lineTo(232, 655);
+            sctx.stroke();
+
+            // Face Shape
+            const faceGrad = sctx.createRadialGradient(320, 345, 20, 320, 355, 165);
+            faceGrad.addColorStop(0, '#fae0d4');
+            faceGrad.addColorStop(0.75, '#f0c4b0');
+            faceGrad.addColorStop(1, '#dba48e');
+            sctx.fillStyle = faceGrad;
+            sctx.beginPath();
+            sctx.moveTo(205, 285);
+            sctx.bezierCurveTo(202, 395, 250, 488, 320, 492);
+            sctx.bezierCurveTo(390, 488, 438, 395, 435, 285);
+            sctx.bezierCurveTo(435, 195, 205, 195, 205, 285);
+            sctx.fill();
+
+            // Soft Rosy Blush on Cheeks
+            const blushL = sctx.createRadialGradient(252, 378, 4, 252, 378, 38);
+            blushL.addColorStop(0, 'rgba(244, 114, 146, 0.42)');
+            blushL.addColorStop(1, 'rgba(244, 114, 146, 0)');
+            sctx.fillStyle = blushL;
+            sctx.beginPath();
+            sctx.arc(252, 378, 38, 0, Math.PI * 2);
+            sctx.fill();
+
+            const blushR = sctx.createRadialGradient(388, 378, 4, 388, 378, 38);
+            blushR.addColorStop(0, 'rgba(244, 114, 146, 0.42)');
+            blushR.addColorStop(1, 'rgba(244, 114, 146, 0)');
+            sctx.fillStyle = blushR;
+            sctx.beginPath();
+            sctx.arc(388, 378, 38, 0, Math.PI * 2);
+            sctx.fill();
+
+            // Eyebrows
+            sctx.strokeStyle = '#2d1f22';
+            sctx.lineWidth = 5.5;
+            sctx.lineCap = 'round';
+            sctx.beginPath();
+            sctx.moveTo(234, 304);
+            sctx.quadraticCurveTo(265, 294, 292, 303);
+            sctx.stroke();
+
+            sctx.beginPath();
+            sctx.moveTo(348, 303);
+            sctx.quadraticCurveTo(375, 294, 406, 304);
+            sctx.stroke();
+
+            // Cute Winged Eyes
+            function drawEye(cx, cy, flip) {
+                sctx.save();
+                sctx.translate(cx, cy);
+                if (flip) sctx.scale(-1, 1);
+
+                // Sclera
+                sctx.fillStyle = '#fffafa';
+                sctx.beginPath();
+                sctx.ellipse(0, 0, 24, 14, 0, 0, Math.PI * 2);
+                sctx.fill();
+
+                // Iris
+                sctx.fillStyle = '#2c1816';
+                sctx.beginPath();
+                sctx.arc(0, 0, 12, 0, Math.PI * 2);
+                sctx.fill();
+
+                // Catchlight sparkle
+                sctx.fillStyle = '#ffffff';
+                sctx.beginPath();
+                sctx.arc(-4, -4, 3.8, 0, Math.PI * 2);
+                sctx.fill();
+
+                // Eyeliner + Wing
+                sctx.strokeStyle = '#140c0e';
+                sctx.lineWidth = 4.5;
+                sctx.beginPath();
+                sctx.moveTo(-25, 1);
+                sctx.quadraticCurveTo(0, -17, 26, -2);
+                sctx.lineTo(34, -8);
+                sctx.stroke();
+
+                sctx.restore();
+            }
+            drawEye(264, 334, false);
+            drawEye(376, 334, true);
+
+            // Subtle Nose Bridge & Tip
+            sctx.fillStyle = 'rgba(185, 118, 102, 0.35)';
+            sctx.beginPath();
+            sctx.ellipse(320, 386, 12, 7, 0, 0, Math.PI * 2);
+            sctx.fill();
+
+            // Cute Glossy Lips
+            sctx.fillStyle = '#d97384';
+            sctx.beginPath();
+            sctx.moveTo(292, 432);
+            sctx.quadraticCurveTo(308, 421, 320, 426);
+            sctx.quadraticCurveTo(332, 421, 348, 432);
+            sctx.quadraticCurveTo(320, 452, 292, 432);
+            sctx.fill();
+
+            // Lip gloss highlight
+            sctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+            sctx.beginPath();
+            sctx.ellipse(320, 438, 11, 3, 0, 0, Math.PI * 2);
+            sctx.fill();
+
+            // Wispy Y2K Bangs & Face-Framing Strands
+            sctx.fillStyle = '#181114';
+            sctx.beginPath();
+            sctx.moveTo(192, 330);
+            sctx.bezierCurveTo(195, 165, 445, 165, 448, 330);
+            sctx.bezierCurveTo(432, 250, 405, 240, 392, 295);
+            sctx.bezierCurveTo(378, 245, 355, 245, 342, 302);
+            sctx.bezierCurveTo(328, 242, 308, 242, 294, 300);
+            sctx.bezierCurveTo(276, 245, 248, 248, 232, 298);
+            sctx.bezierCurveTo(216, 250, 200, 270, 192, 330);
+            sctx.fill();
+
+            // Side framing hair locks
+            sctx.beginPath();
+            sctx.moveTo(205, 280);
+            sctx.quadraticCurveTo(188, 410, 212, 540);
+            sctx.quadraticCurveTo(175, 430, 185, 280);
+            sctx.fill();
+
+            sctx.beginPath();
+            sctx.moveTo(435, 280);
+            sctx.quadraticCurveTo(452, 410, 428, 540);
+            sctx.quadraticCurveTo(465, 430, 455, 280);
+            sctx.fill();
+
+            const img = new Image();
+            img.onload = () => {
+                state.sourceImage = img;
+                resetStickerPositions();
+                render();
+            };
+            img.src = sampleCanvas.toDataURL('image/png');
+        }
+
+        // --- Reset Sticker Default Placement ---
+        function resetStickerPositions() {
+            state.stickers.ears = { x: 0.50, y: 0.24, scale: 1.0, rotation: 0 };
+            state.stickers.glasses = { x: 0.50, y: 0.43, scale: 1.0, rotation: 0 };
+            state.stickers.nose = { x: 0.50, y: 0.54, scale: 1.0, rotation: 0 };
+            syncStickerSliders();
+        }
+
+        function syncStickerSliders() {
+            const target = state.activeStickerTarget === 'all' ? 'ears' : state.activeStickerTarget;
+            const s = state.stickers[target];
+            stickerScaleSlider.value = Math.round(s.scale * 100);
+            stickerScaleVal.textContent = `${Math.round(s.scale * 100)}%`;
+            stickerRotSlider.value = Math.round(s.rotation);
+            stickerRotVal.textContent = `${Math.round(s.rotation)}°`;
+        }
+
+        // --- Custom Detailed 3D-Shaded Sticker Renderers ---
+
+        /**
+         * Draws realistic 3D-shaded floppy brown puppy ears with soft pink inner ear folds
+         */
+        function drawPuppyEars(context, cx, cy, baseWidth, rotationDeg) {
+            context.save();
+            context.translate(cx, cy);
+            context.rotate((rotationDeg * Math.PI) / 180);
+
+            const earSpread = baseWidth * 0.34;
+            const earW = baseWidth * 0.27;
+            const earH = baseWidth * 0.31;
+
+            function drawSingleEar(side) {
+                // side: -1 for left ear, +1 for right ear
+                context.save();
+                context.translate(side * earSpread, 0);
+                context.rotate(side * -0.18);
+                if (side === 1) context.scale(-1, 1);
+
+                // Drop shadow behind ear onto hair
+                context.shadowColor = 'rgba(25, 10, 5, 0.45)';
+                context.shadowBlur = baseWidth * 0.035;
+                context.shadowOffsetX = side * 4;
+                context.shadowOffsetY = 8;
+
+                // Outer Floppy Brown Ear Shape
+                const furGrad = context.createLinearGradient(-earW * 0.5, -earH * 0.4, earW * 0.5, earH * 0.6);
+                furGrad.addColorStop(0, '#9c6334');
+                furGrad.addColorStop(0.45, '#b87a46');
+                furGrad.addColorStop(0.85, '#7a4922');
+                furGrad.addColorStop(1, '#5e3516');
+
+                context.fillStyle = furGrad;
+                context.beginPath();
+                context.moveTo(earW * 0.15, -earH * 0.38);
+                context.bezierCurveTo(earW * 0.62, -earH * 0.52, earW * 0.68, earH * 0.18, earW * 0.32, earH * 0.35);
+                context.bezierCurveTo(earW * 0.05, earH * 0.48, -earW * 0.28, earH * 0.62, -earW * 0.48, earH * 0.48);
+                context.bezierCurveTo(-earW * 0.72, earH * 0.30, -earW * 0.65, -earH * 0.28, -earW * 0.25, -earH * 0.36);
+                context.closePath();
+                context.fill();
+
+                // Turn off shadow for inner details
+                context.shadowColor = 'transparent';
+
+                // Soft Pink Inner Ear Fold
+                const innerGrad = context.createLinearGradient(0, -earH * 0.25, earW * 0.35, earH * 0.3);
+                innerGrad.addColorStop(0, '#f3b5b8');
+                innerGrad.addColorStop(0.6, '#e2949a');
+                innerGrad.addColorStop(1, '#c47279');
+
+                context.fillStyle = innerGrad;
+                context.beginPath();
+                context.moveTo(earW * 0.12, -earH * 0.24);
+                context.bezierCurveTo(earW * 0.44, -earH * 0.32, earW * 0.48, earH * 0.12, earW * 0.22, earH * 0.24);
+                context.bezierCurveTo(earW * 0.04, earH * 0.28, -earW * 0.06, earH * 0.02, earW * 0.12, -earH * 0.24);
+                context.fill();
+
+                // Top Fur Highlight & Fold Crease
+                context.strokeStyle = 'rgba(255, 224, 190, 0.35)';
+                context.lineWidth = Math.max(1.5, baseWidth * 0.006);
+                context.beginPath();
+                context.moveTo(-earW * 0.32, -earH * 0.22);
+                context.quadraticCurveTo(-earW * 0.05, -earH * 0.35, earW * 0.16, -earH * 0.18);
+                sctxStroke = context.stroke();
+
+                context.restore();
+            }
+
+            drawSingleEar(-1);
+            drawSingleEar(1);
+            context.restore();
+        }
+
+        /**
+         * Draws the iconic 2016 glossy puppy snout & wet nose with muzzle cheeks
+         */
+        function drawPuppyNose(context, cx, cy, baseWidth, rotationDeg) {
+            context.save();
+            context.translate(cx, cy);
+            context.rotate((rotationDeg * Math.PI) / 180);
+
+            const snoutW = baseWidth * 0.25;
+            const snoutH = baseWidth * 0.145;
+
+            // Soft shadow onto upper lip
+            context.shadowColor = 'rgba(35, 15, 10, 0.38)';
+            context.shadowBlur = baseWidth * 0.025;
+            context.shadowOffsetY = 5;
+
+            // Left & Right Furry Muzzle Cheeks
+            function drawMuzzleLobe(side) {
+                context.save();
+                context.translate(side * snoutW * 0.23, snoutH * 0.12);
+                context.rotate(side * 0.18);
+
+                const lobeGrad = context.createRadialGradient(
+                    -side * snoutW * 0.05, -snoutH * 0.1, snoutW * 0.03,
+                    0, 0, snoutW * 0.32
+                );
+                lobeGrad.addColorStop(0, '#e3ba94');
+                lobeGrad.addColorStop(0.55, '#c49268');
+                lobeGrad.addColorStop(1, '#8c5d38');
+
+                context.fillStyle = lobeGrad;
+                context.beginPath();
+                context.ellipse(0, 0, snoutW * 0.27, snoutH * 0.38, 0, 0, Math.PI * 2);
+                context.fill();
+
+                // Tiny whisker pores
+                context.shadowColor = 'transparent';
+                context.fillStyle = 'rgba(65, 38, 20, 0.45)';
+                const dots = [[-0.08, -0.05], [0.04, -0.08], [0.09, 0.04], [-0.03, 0.08]];
+                dots.forEach(([dx, dy]) => {
+                    context.beginPath();
+                    context.arc(dx * snoutW, dy * snoutH, Math.max(1, baseWidth * 0.0032), 0, Math.PI * 2);
+                    context.fill();
+                });
+
+                context.restore();
+            }
+
+            drawMuzzleLobe(-1);
+            drawMuzzleLobe(1);
+
+            // Center Nose Bridge Blend
+            context.shadowColor = 'transparent';
+            const bridgeGrad = context.createLinearGradient(0, -snoutH * 0.45, 0, snoutH * 0.15);
+            bridgeGrad.addColorStop(0, 'rgba(227, 186, 148, 0)');
+            bridgeGrad.addColorStop(0.5, 'rgba(227, 186, 148, 0.85)');
+            bridgeGrad.addColorStop(1, '#b8855c');
+            context.fillStyle = bridgeGrad;
+            context.beginPath();
+            context.ellipse(0, -snoutH * 0.14, snoutW * 0.22, snoutH * 0.32, 0, 0, Math.PI * 2);
+            context.fill();
+
+            // Glossy Dark Puppy Nose Tip
+            const noseW = snoutW * 0.27;
+            const noseH = snoutH * 0.32;
+            const noseGrad = context.createRadialGradient(0, -noseH * 0.25, noseW * 0.1, 0, 0, noseW * 1.15);
+            noseGrad.addColorStop(0, '#594a47');
+            noseGrad.addColorStop(0.55, '#291e1d');
+            noseGrad.addColorStop(1, '#120b0a');
+
+            context.fillStyle = noseGrad;
+            context.beginPath();
+            context.moveTo(-noseW, -noseH * 0.35);
+            context.quadraticCurveTo(0, -noseH * 0.95, noseW, -noseH * 0.35);
+            context.bezierCurveTo(noseW * 1.12, noseH * 0.35, noseW * 0.35, noseH * 0.92, 0, noseH * 0.92);
+            context.bezierCurveTo(-noseW * 0.35, noseH * 0.92, -noseW * 1.12, noseH * 0.35, -noseW, -noseH * 0.35);
+            context.fill();
+
+            // Nostrils
+            context.fillStyle = '#090505';
+            context.beginPath();
+            context.ellipse(-noseW * 0.45, noseH * 0.12, noseW * 0.22, noseH * 0.16, -0.35, 0, Math.PI * 2);
+            context.ellipse(noseW * 0.45, noseH * 0.12, noseW * 0.22, noseH * 0.16, 0.35, 0, Math.PI * 2);
+            context.fill();
+
+            // Wet Specular Shine on Top of Nose
+            const shineGrad = context.createLinearGradient(0, -noseH * 0.72, 0, -noseH * 0.1);
+            shineGrad.addColorStop(0, 'rgba(255, 255, 255, 0.85)');
+            shineGrad.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
+            context.fillStyle = shineGrad;
+            context.beginPath();
+            context.ellipse(0, -noseH * 0.38, noseW * 0.62, noseH * 0.25, 0, 0, Math.PI * 2);
+            context.fill();
+
+            context.restore();
+        }
+
+        /**
+         * Draws classic thick black-rimmed 2016 nerd glasses with silver corner pins (like ref 4)
+         */
+        function drawNerdGlasses(context, cx, cy, baseWidth, rotationDeg) {
+            context.save();
+            context.translate(cx, cy);
+            context.rotate((rotationDeg * Math.PI) / 180);
+
+            const totalW = baseWidth * 0.56;
+            const lensW = totalW * 0.41;
+            const lensH = lensW * 0.76;
+            const bridgeW = totalW * 0.12;
+            const strokeThick = Math.max(4, baseWidth * 0.019);
+
+            // Subtle shadow under frames on cheeks
+            context.shadowColor = 'rgba(0, 0, 0, 0.35)';
+            context.shadowBlur = baseWidth * 0.02;
+            context.shadowOffsetY = 5;
+
+            function drawLensFrame(side) {
+                const offsetX = side * (bridgeW * 0.5 + lensW * 0.5);
+                context.save();
+                context.translate(offsetX, 0);
+                if (side === 1) context.scale(-1, 1);
+
+                // Subtle glass reflection tint
+                const glassGrad = context.createLinearGradient(-lensW * 0.5, -lensH * 0.5, lensW * 0.5, lensH * 0.5);
+                glassGrad.addColorStop(0, 'rgba(255, 255, 255, 0.14)');
+                glassGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.02)');
+                glassGrad.addColorStop(1, 'rgba(210, 240, 255, 0.10)');
+
+                context.fillStyle = glassGrad;
+                context.strokeStyle = '#141316';
+                context.lineWidth = strokeThick;
+                context.lineJoin = 'round';
+
+                // Wayfarer / Nerd Frame Path
+                context.beginPath();
+                context.moveTo(-lensW * 0.54, -lensH * 0.48);
+                context.lineTo(lensW * 0.48, -lensH * 0.48);
+                context.quadraticCurveTo(lensW * 0.54, 0, lensW * 0.42, lensH * 0.44);
+                context.quadraticCurveTo(0, lensH * 0.56, -lensW * 0.38, lensH * 0.44);
+                context.quadraticCurveTo(-lensW * 0.52, 0, -lensW * 0.54, -lensH * 0.48);
+                context.closePath();
+                context.fill();
+                context.stroke();
+
+                // Outer Horn-Rim Wing & Silver/White Hinge Pin (iconic detail in ref 4)
+                context.shadowColor = 'transparent';
+                context.fillStyle = '#141316';
+                context.beginPath();
+                context.roundRect(-lensW * 0.62, -lensH * 0.53, lensW * 0.16, lensH * 0.24, 3);
+                context.fill();
+
+                context.fillStyle = '#e8eaed';
+                context.fillRect(-lensW * 0.58, -lensH * 0.44, lensW * 0.08, lensH * 0.07);
+
+                context.restore();
+            }
+
+            drawLensFrame(-1);
+            drawLensFrame(1);
+
+            // Center Nose Bridge
+            context.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            context.strokeStyle = '#141316';
+            context.lineWidth = strokeThick * 1.15;
+            context.lineCap = 'round';
+            context.beginPath();
+            context.moveTo(-bridgeW * 0.65, -lensH * 0.34);
+            context.quadraticCurveTo(0, -lensH * 0.44, bridgeW * 0.65, -lensH * 0.34);
+            context.stroke();
+
+            context.restore();
+        }
+
+        // --- Pixel & Filter Shader Passes ---
+
+        /**
+         * Applies pixelation downsampling to a canvas context
+         */
+        function applyPixelation(targetCtx, w, h, pixelFactor) {
+            if (pixelFactor <= 0.02) return;
+            const scale = Math.max(0.08, 1 - pixelFactor * 0.82);
+            const sw = Math.max(24, Math.floor(w * scale));
+            const sh = Math.max(24, Math.floor(h * scale));
+
+            const temp = document.createElement('canvas');
+            temp.width = sw;
+            temp.height = sh;
+            const tctx = temp.getContext('2d');
+            tctx.imageSmoothingEnabled = true;
+            tctx.drawImage(targetCtx.canvas, 0, 0, sw, sh);
+
+            targetCtx.save();
+            targetCtx.imageSmoothingEnabled = false;
+            targetCtx.clearRect(0, 0, w, h);
+            targetCtx.drawImage(temp, 0, 0, sw, sh, 0, 0, w, h);
+            targetCtx.restore();
+        }
+
+        /**
+         * Color grading & analog noise pass tailored to each of the 4 reference styles
+         */
+        function applyColorGradeAndNoise(targetCtx, w, h, filterType, intensity, pixelAmount) {
+            const imgData = targetCtx.getImageData(0, 0, w, h);
+            const data = imgData.data;
+
+            for (let y = 0; y < h; y++) {
+                // Subtle CRT scanline modulation for Low-Fi Webcam
+                const scanline = (filterType === 'webcam' && y % 3 === 0) ? (1 - 0.14 * intensity) : 1.0;
+
+                for (let x = 0; x < w; x++) {
+                    const idx = (y * w + x) * 4;
+                    let r = data[idx];
+                    let g = data[idx + 1];
+                    let b = data[idx + 2];
+
+                    const origR = r, origG = g, origB = b;
+
+                    if (filterType === 'webcam') {
+                        // Reference 1: 2000s Webcam - high contrast, cool blue/indigo shadows, warm highlights, chroma noise
+                        r = (r - 128) * 1.32 + 125;
+                        g = (g - 128) * 1.28 + 122;
+                        b = (b - 128) * 1.35 + 138;
+
+                        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+                        if (luma < 115) {
+                            // Cool blue-purple webcam sensor cast in darks
+                            b += 26;
+                            r += 6;
+                            g -= 6;
+                        } else {
+                            // Warm blown highlight tint
+                            r += 14;
+                            g += 10;
+                            b -= 10;
+                        }
+
+                        // RGB sensor grain
+                        const grainAmt = 26 + pixelAmount * 30;
+                        r += (Math.random() - 0.5) * grainAmt;
+                        g += (Math.random() - 0.5) * grainAmt;
+                        b += (Math.random() - 0.5) * (grainAmt * 1.2);
+
+                        r *= scanline;
+                        g *= scanline;
+                        b *= scanline;
+
+                    } else if (filterType === 'digicam') {
+                        // Reference 3: Overexposed vintage flash digicam - blown creamy yellow highlights, crushed darks, heavy film grain
+                        r = r * 1.26 + 18;
+                        g = g * 1.24 + 16;
+                        b = b * 1.04 + 4;
+
+                        // S-curve contrast + lifted faded blacks
+                        r = ((r / 255 - 0.45) * 1.35 + 0.48) * 255;
+                        g = ((g / 255 - 0.45) * 1.35 + 0.48) * 255;
+                        b = ((b / 255 - 0.45) * 1.25 + 0.44) * 255;
+
+                        // Creamy yellowish highlight wash
+                        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+                        if (luma > 165) {
+                            r += 18;
+                            g += 16;
+                            b -= 12;
+                        } else if (luma < 75) {
+                            // Faded charcoal shadows
+                            r = r * 0.8 + 20;
+                            g = g * 0.8 + 18;
+                            b = b * 0.8 + 22;
+                        }
+
+                        // Heavy analog grain
+                        const grain = (Math.random() - 0.5) * (38 + pixelAmount * 32);
+                        r += grain;
+                        g += grain * 0.95;
+                        b += grain * 0.85;
+
+                    } else if (filterType === 'puppyFlash') {
+                        // Reference 2: 2016 Flash Puppy - warm rosy flash, punchy contrast, subtle fine flash grain
+                        r = (r - 128) * 1.22 + 136;
+                        g = (g - 128) * 1.15 + 126;
+                        b = (b - 128) * 1.12 + 122;
+
+                        // Rosy peach warmth
+                        r += 12;
+                        g += 3;
+                        b -= 4;
+
+                        const grain = (Math.random() - 0.5) * 28;
+                        r += grain;
+                        g += grain;
+                        b += grain;
+
+                    } else if (filterType === 'puppyNerd') {
+                        // Reference 4: Washed-out 2016 yellowish-greenish soft vintage tone
+                        r = r * 1.06 + 14;
+                        g = g * 1.10 + 18;
+                        b = b * 0.94 + 12;
+
+                        // Slightly lifted milky shadows
+                        r = r * 0.90 + 22;
+                        g = g * 0.90 + 25;
+                        b = b * 0.90 + 18;
+
+                        const grain = (Math.random() - 0.5) * 18;
+                        r += grain;
+                        g += grain;
+                        b += grain;
+                    }
+
+                    // Blend between original and filtered pixel based on intensity slider
+                    data[idx]     = Math.min(255, Math.max(0, origR + (r - origR) * intensity));
+                    data[idx + 1] = Math.min(255, Math.max(0, origG + (g - origG) * intensity));
+                    data[idx + 2] = Math.min(255, Math.max(0, origB + (b - origB) * intensity));
+                }
+            }
+
+            targetCtx.putImageData(imgData, 0, 0);
+        }
+
+        // --- Main Composite Render Pipeline ---
+        function render() {
+            if (!state.sourceImage) return;
+
+            const src = state.sourceImage;
+            // Scale working canvas cleanly while preserving aspect ratio (max 900px side for snappy performance)
+            const maxDim = 900;
+            let w = src.naturalWidth || src.width;
+            let h = src.naturalHeight || src.height;
+            if (w > maxDim || h > maxDim) {
+                const ratio = Math.min(maxDim / w, maxDim / h);
+                w = Math.round(w * ratio);
+                h = Math.round(h * ratio);
+            }
+
+            canvas.width = w;
+            canvas.height = h;
+            imageDimensionsBadge.textContent = `${w} × ${h}px`;
+
+            // If holding "Compare Original" button, show unedited image
+            if (state.showOriginal) {
+                ctx.clearRect(0, 0, w, h);
+                ctx.drawImage(src, 0, 0, w, h);
+                return;
+            }
+
+            const filter = state.currentFilter;
+            const intensity = state.intensity;
+            const pixelAmount = state.pixelAmount;
+
+            // Offscreen buffer for main photo processing
+            const workCanvas = document.createElement('canvas');
+            workCanvas.width = w;
+            workCanvas.height = h;
+            const wctx = workCanvas.getContext('2d', { willReadFrequently: true });
+
+            // Base draw (with slight bloom/softness for digicam)
+            if (filter === 'digicam') {
+                wctx.filter = `blur(${(0.6 * intensity).toFixed(2)}px) contrast(${100 + 18 * intensity}%) brightness(${100 + 12 * intensity}%)`;
+            } else if (filter === 'webcam') {
+                wctx.filter = `blur(${(0.4 * intensity).toFixed(2)}px)`;
+            } else {
+                wctx.filter = 'none';
+            }
+            wctx.drawImage(src, 0, 0, w, h);
+            wctx.filter = 'none';
+
+            // 1. Low-Fi Pixelation pass (for Webcam & Digicam)
+            if (filter === 'webcam') {
+                applyPixelation(wctx, w, h, 0.25 + pixelAmount * 0.55);
+            } else if (filter === 'digicam') {
+                applyPixelation(wctx, w, h, pixelAmount * 0.35);
+            }
+
+            // 2. Color Grading & Film/Sensor Noise pass
+            applyColorGradeAndNoise(wctx, w, h, filter, intensity, pixelAmount);
+
+            // 3. Vignette & Flash Spotlight overlays
+            if (filter === 'webcam') {
+                // Dark vignette + Photo Booth rounded black CRT bezel (Reference 1)
+                const vig = wctx.createRadialGradient(w * 0.5, h * 0.5, w * 0.28, w * 0.5, h * 0.5, Math.max(w, h) * 0.72);
+                vig.addColorStop(0, 'rgba(0,0,0,0)');
+                vig.addColorStop(1, `rgba(8, 6, 18, ${0.55 * intensity})`);
+                wctx.fillStyle = vig;
+                wctx.fillRect(0, 0, w, h);
+
+                // Black rounded-corner Photo Booth frame
+                const pad = Math.round(Math.min(w, h) * 0.032);
+                const rad = Math.round(Math.min(w, h) * 0.085);
+                wctx.save();
+                wctx.fillStyle = '#050507';
+                wctx.beginPath();
+                wctx.rect(0, 0, w, h);
+                wctx.roundRect(pad, pad, w - pad * 2, h - pad * 2, rad);
+                wctx.fill('evenodd');
+                wctx.restore();
+
+            } else if (filter === 'digicam') {
+                // Subtle polaroid/digicam dark edge border & crooked tilt (Reference 3)
+                const vig = wctx.createRadialGradient(w * 0.5, h * 0.45, w * 0.25, w * 0.5, h * 0.5, Math.max(w, h) * 0.72);
+                vig.addColorStop(0, 'rgba(255, 250, 225, 0.12)');
+                vig.addColorStop(1, `rgba(25, 20, 18, ${0.5 * intensity})`);
+                wctx.fillStyle = vig;
+                wctx.fillRect(0, 0, w, h);
+
+                // Slight tilted vintage print frame
+                const framed = document.createElement('canvas');
+                framed.width = w;
+                framed.height = h;
+                const fctx = framed.getContext('2d');
+                fctx.fillStyle = '#141212';
+                fctx.fillRect(0, 0, w, h);
+                fctx.save();
+                fctx.translate(w / 2, h / 2);
+                fctx.rotate((-1.6 * intensity * Math.PI) / 180);
+                const inset = 1 - 0.045 * intensity;
+                fctx.drawImage(workCanvas, (-w * inset) / 2, (-h * inset) / 2, w * inset, h * inset);
+                fctx.restore();
+
+                wctx.clearRect(0, 0, w, h);
+                wctx.drawImage(framed, 0, 0);
+
+            } else if (filter === 'puppyFlash') {
+                // Dark flash falloff vignette around edges (Reference 2)
+                const vig = wctx.createRadialGradient(w * 0.52, h * 0.45, w * 0.22, w * 0.5, h * 0.5, Math.max(w, h) * 0.68);
+                vig.addColorStop(0, 'rgba(255, 235, 230, 0.08)');
+                vig.addColorStop(0.65, `rgba(30, 15, 20, ${0.28 * intensity})`);
+                vig.addColorStop(1, `rgba(12, 6, 10, ${0.72 * intensity})`);
+                wctx.fillStyle = vig;
+                wctx.fillRect(0, 0, w, h);
+
+                // Draw Puppy Ears & Nose Stickers
+                const baseSize = Math.min(w, h) * 0.95;
+                const ears = state.stickers.ears;
+                const nose = state.stickers.nose;
+
+                drawPuppyEars(wctx, ears.x * w, ears.y * h, baseSize * ears.scale, ears.rotation);
+                drawPuppyNose(wctx, nose.x * w, nose.y * h, baseSize * nose.scale, nose.rotation);
+
+            } else if (filter === 'puppyNerd') {
+                // Reference 4: Draw Puppy Ears, Black Nerd Glasses, and Puppy Nose on main left panel
+                const stripRatio = 0.24; // Right 24% is the stretched pixelated glitch strip
+                const mainW = Math.round(w * (1 - stripRatio));
+                const stripW = w - mainW;
+
+                // Crop/fit image nicely into the main left area
+                const mainPanel = document.createElement('canvas');
+                mainPanel.width = mainW;
+                mainPanel.height = h;
+                const mctx = mainPanel.getContext('2d');
+                mctx.drawImage(workCanvas, 0, 0, w, h, 0, 0, mainW, h);
+
+                // Draw stickers onto mainPanel
+                const baseSize = Math.min(mainW, h) * 1.05;
+                const ears = state.stickers.ears;
+                const glasses = state.stickers.glasses;
+                const nose = state.stickers.nose;
+
+                drawPuppyEars(mctx, ears.x * mainW, ears.y * h, baseSize * ears.scale, ears.rotation);
+                drawNerdGlasses(mctx, glasses.x * mainW, glasses.y * h, baseSize * glasses.scale, glasses.rotation);
+                drawPuppyNose(mctx, nose.x * mainW, nose.y * h, baseSize * nose.scale, nose.rotation);
+
+                // Compose main panel onto workCanvas
+                wctx.clearRect(0, 0, w, h);
+                wctx.drawImage(mainPanel, 0, 0);
+
+                // Create chunky vertical pixelated glitch strip on the right (Reference 4!)
+                const blockCols = Math.max(10, Math.round(32 - pixelAmount * 18));
+                const blockRows = Math.max(24, Math.round(95 - pixelAmount * 50));
+
+                const tinyStrip = document.createElement('canvas');
+                tinyStrip.width = blockCols;
+                tinyStrip.height = blockRows;
+                const sctx = tinyStrip.getContext('2d');
+                sctx.imageSmoothingEnabled = true;
+                // Sample the center/face portion of mainPanel and stretch vertically into chunky blocks
+                sctx.drawImage(mainPanel, mainW * 0.08, 0, mainW * 0.84, h, 0, 0, blockCols, blockRows);
+
+                wctx.save();
+                wctx.imageSmoothingEnabled = false;
+                wctx.drawImage(tinyStrip, 0, 0, blockCols, blockRows, mainW, 0, stripW, h);
+                wctx.restore();
+            }
+
+            // Blit final result to visible canvas
+            ctx.clearRect(0, 0, w, h);
+            ctx.drawImage(workCanvas, 0, 0);
+        }
+
+        // --- Interactive Sticker Dragging on Canvas (Mouse & Touch) ---
+        function getCanvasNormalizedCoords(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            const isNerd = state.currentFilter === 'puppyNerd';
+            const activeWidthRatio = isNerd ? 0.76 : 1.0;
+            const normX = (clientX - rect.left) / (rect.width * activeWidthRatio);
+            const normY = (clientY - rect.top) / rect.height;
+            return { x: normX, y: normY };
+        }
+
+        function findNearestSticker(nx, ny) {
+            const candidates = state.currentFilter === 'puppyNerd'
+                ? ['ears', 'glasses', 'nose']
+                : ['ears', 'nose'];
+
+            let bestPart = null;
+            let bestDist = 0.22; // Hit radius in normalized canvas space
+
+            candidates.forEach(part => {
+                const s = state.stickers[part];
+                const dx = nx - s.x;
+                const dy = ny - s.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestPart = part;
+                }
+            });
+            return bestPart;
+        }
+
+        function handlePointerDown(clientX, clientY) {
+            if (state.currentFilter !== 'puppyFlash' && state.currentFilter !== 'puppyNerd') return;
+            const pos = getCanvasNormalizedCoords(clientX, clientY);
+            const hit = findNearestSticker(pos.x, pos.y);
+            if (hit) {
+                state.draggingPart = hit;
+                state.dragOffset = {
+                    x: pos.x - state.stickers[hit].x,
+                    y: pos.y - state.stickers[hit].y
+                };
+                // Automatically focus that sticker in the slider UI
+                setStickerTarget(hit);
+            }
+        }
+
+        function handlePointerMove(clientX, clientY) {
+            if (!state.draggingPart) return;
+            const pos = getCanvasNormalizedCoords(clientX, clientY);
+            const part = state.stickers[state.draggingPart];
+            part.x = Math.min(0.95, Math.max(0.05, pos.x - state.dragOffset.x));
+            part.y = Math.min(0.95, Math.max(0.05, pos.y - state.dragOffset.y));
+            render();
+        }
+
+        function handlePointerUp() {
+            state.draggingPart = null;
+        }
+
+        canvas.addEventListener('mousedown', (e) => handlePointerDown(e.clientX, e.clientY));
+        window.addEventListener('mousemove', (e) => handlePointerMove(e.clientX, e.clientY));
+        window.addEventListener('mouseup', handlePointerUp);
+
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                const t = e.touches[0];
+                handlePointerDown(t.clientX, t.clientY);
+            }
+        }, { passive: true });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (state.draggingPart && e.touches.length === 1) {
+                e.preventDefault();
+                const t = e.touches[0];
+                handlePointerMove(t.clientX, t.clientY);
+            }
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', handlePointerUp);
+
+        // --- UI & Filter Switching Logic ---
+        const filterNames = {
+            webcam: '✨ Low-Fi Webcam (2000s CRT)',
+            digicam: '⚡ Retro Flash Digicam',
+            puppyFlash: '🐶 Classic Flash Puppy ♡',
+            puppyNerd: '🤓 Nerd Puppy Split-Glitch'
+        };
+
+        function selectFilter(filterKey) {
+            state.currentFilter = filterKey;
+            activeFilterBadge.textContent = filterNames[filterKey];
+
+            // Highlight active card
+            filterCards.forEach(card => {
+                const isSelected = card.dataset.filter === filterKey;
+                const dot = card.querySelector('.active-dot');
+                if (isSelected) {
+                    card.classList.remove('border-pinky-200', 'bg-white');
+                    card.classList.add('border-pinky-500', 'bg-pinky-50/90', 'shadow-sm');
+                    dot.classList.remove('bg-transparent');
+                    dot.classList.add('bg-pinky-500');
+                } else {
+                    card.classList.add('border-pinky-200', 'bg-white');
+                    card.classList.remove('border-pinky-500', 'bg-pinky-50/90', 'shadow-sm');
+                    dot.classList.add('bg-transparent');
+                    dot.classList.remove('bg-pinky-500');
+                }
+            });
+
+            // Toggle contextual controls
+            const isPuppy = filterKey === 'puppyFlash' || filterKey === 'puppyNerd';
+            puppyControls.classList.toggle('hidden', !isPuppy);
+
+            if (filterKey === 'puppyNerd') {
+                targetGlassesBtn.classList.remove('hidden');
+                pixelControlGroup.classList.remove('hidden');
+                pixelLabel.textContent = 'Right Strip Glitch Block Size';
+            } else if (filterKey === 'puppyFlash') {
+                targetGlassesBtn.classList.add('hidden');
+                if (state.activeStickerTarget === 'glasses') setStickerTarget('all');
+                pixelControlGroup.classList.add('hidden');
+            } else {
+                pixelControlGroup.classList.remove('hidden');
+                pixelLabel.textContent = filterKey === 'webcam' ? 'Low-Res Webcam Pixel Crunch' : 'Digicam Softness & Grain';
+            }
+
+            if (isPuppy) {
+                helperHint.innerHTML = `<i class="fa-solid fa-paw text-pinky-500"></i><span>Drag the <b>puppy ears</b>, <b>nose</b>${filterKey === 'puppyNerd' ? ', or <b>glasses</b>' : ''} right on your photo!</span>`;
+            } else {
+                helperHint.innerHTML = `<i class="fa-solid fa-sparkles text-pinky-400"></i><span>Adjust intensity & pixel crunch on the right, then click Download!</span>`;
+            }
+
+            render();
+        }
+
+        function setStickerTarget(target) {
+            state.activeStickerTarget = target;
+            targetBtns.forEach(btn => {
+                const active = btn.dataset.target === target;
+                if (active) {
+                    btn.classList.add('bg-pinky-500', 'text-white', 'shadow-sm');
+                    btn.classList.remove('text-pinky-700', 'hover:bg-pinky-100');
+                } else {
+                    btn.classList.remove('bg-pinky-500', 'text-white', 'shadow-sm');
+                    btn.classList.add('text-pinky-700', 'hover:bg-pinky-100');
+                }
+            });
+            syncStickerSliders();
+        }
+
+        filterCards.forEach(card => {
+            card.addEventListener('click', () => selectFilter(card.dataset.filter));
+        });
+
+        targetBtns.forEach(btn => {
+            btn.addEventListener('click', () => setStickerTarget(btn.dataset.target));
+        });
+
+        // Slider Event Listeners
+        intensitySlider.addEventListener('input', (e) => {
+            state.intensity = Number(e.target.value) / 100;
+            intensityVal.textContent = `${e.target.value}%`;
+            render();
+        });
+
+        pixelSlider.addEventListener('input', (e) => {
+            state.pixelAmount = Number(e.target.value) / 100;
+            pixelVal.textContent = `${e.target.value}%`;
+            render();
+        });
+
+        stickerScaleSlider.addEventListener('input', (e) => {
+            const val = Number(e.target.value) / 100;
+            stickerScaleVal.textContent = `${e.target.value}%`;
+            if (state.activeStickerTarget === 'all') {
+                state.stickers.ears.scale = val;
+                state.stickers.glasses.scale = val;
+                state.stickers.nose.scale = val;
+            } else {
+                state.stickers[state.activeStickerTarget].scale = val;
+            }
+            render();
+        });
+
+        stickerRotSlider.addEventListener('input', (e) => {
+            const deg = Number(e.target.value);
+            stickerRotVal.textContent = `${deg}°`;
+            if (state.activeStickerTarget === 'all') {
+                state.stickers.ears.rotation = deg;
+                state.stickers.glasses.rotation = deg;
+                state.stickers.nose.rotation = deg;
+            } else {
+                state.stickers[state.activeStickerTarget].rotation = deg;
+            }
+            render();
+        });
+
+        // Reset & Compare Buttons
+        resetAdjustmentsBtn.addEventListener('click', () => {
+            state.intensity = 0.85;
+            state.pixelAmount = 0.50;
+            intensitySlider.value = 85;
+            intensityVal.textContent = '85%';
+            pixelSlider.value = 50;
+            pixelVal.textContent = '50%';
+            resetStickerPositions();
+            render();
+            showToast('Adjustments reset! ♡', '🎀');
+        });
+
+        centerStickersBtn.addEventListener('click', () => {
+            resetStickerPositions();
+            render();
+            showToast('Puppy stickers centered!', '🐶');
+        });
+
+        resetSampleBtn.addEventListener('click', () => {
+            createDefaultSampleImage();
+            showToast('Loaded cute sample portrait!', '🌸');
+        });
+
+        // Hold to compare original
+        const startCompare = () => { state.showOriginal = true; render(); };
+        const endCompare = () => { if (state.showOriginal) { state.showOriginal = false; render(); } };
+        toggleCompareBtn.addEventListener('mousedown', startCompare);
+        toggleCompareBtn.addEventListener('touchstart', startCompare, { passive: true });
+        window.addEventListener('mouseup', endCompare);
+        window.addEventListener('touchend', endCompare);
+
+        // --- File Upload & Drag-and-Drop Handling ---
+        function loadImageFile(file) {
+            if (!file || !file.type.startsWith('image/')) {
+                showToast('Please select a valid image file!', '⚠️');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    state.sourceImage = img;
+                    resetStickerPositions();
+                    render();
+                    showToast('Selfie uploaded! Pick a cute filter ♡', '💖');
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                loadImageFile(e.target.files[0]);
+            }
+        });
+
+        ['dragenter', 'dragover'].forEach(evtName => {
+            dropZone.addEventListener(evtName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dragOverlay.classList.remove('hidden');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evtName => {
+            dropZone.addEventListener(evtName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dragOverlay.classList.add('hidden');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer?.files;
+            if (files && files[0]) {
+                loadImageFile(files[0]);
+            }
+        });
+
+        // --- Easy One-Click Photo Download ---
+        function downloadFilteredPhoto() {
+            if (!state.sourceImage) return;
+            try {
+                const link = document.createElement('a');
+                const timestamp = new Date().toISOString().slice(0, 10);
+                link.download = `paws-and-pixels-${state.currentFilter}-${timestamp}.png`;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('Saved your cute filtered pic! 💖', '📸');
+            } catch (err) {
+                console.error('Download error:', err);
+                showToast('Could not download image. Try another photo.', '⚠️');
+            }
+        }
+
+        downloadBtnTop.addEventListener('click', downloadFilteredPhoto);
+        downloadBtnMain.addEventListener('click', downloadFilteredPhoto);
+
+        // --- Initialize App ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initGrainBuffer();
+            selectFilter('webcam');
+            createDefaultSampleImage();
+        });
+    </script>
+</body>
+</html>
